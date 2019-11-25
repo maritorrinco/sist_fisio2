@@ -1,19 +1,64 @@
 <ion-header>
   <ion-toolbar>
+      <ion-buttons slot="start">
+          <ion-menu-button></ion-menu-button>
+        </ion-buttons>
     <ion-title>Agregar Ficha Clínica</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <form (ngSubmit)="logForm()">
+  
     <ion-item>
-      <ion-label>Todo</ion-label>
-      <ion-input type="text" [(ngModel)]="todo.title" name="title"></ion-input>
+      <ion-label>Motivo de la consulta</ion-label>
+      <ion-input type="text" [(ngModel)]="ficha.motivoConsulta" name="motivo"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label>Description</ion-label>
-      <ion-textarea [(ngModel)]="todo.description" name="description"></ion-textarea>
+      <ion-label>Diagnostico</ion-label>
+      <ion-textarea [(ngModel)]="ficha.diagnostico" name="diagnostico"></ion-textarea>
     </ion-item>
-    <button ion-button type="submit" block>Add Todo</button>
-  </form>
+    <ion-item>
+        <ion-label>Observación</ion-label>
+        <ion-textarea [(ngModel)]="ficha.observacion" name="observacion"></ion-textarea>
+      </ion-item>
+      <ion-item>
+          <ion-label> <ion-icon name="person"></ion-icon>Fisioterapeuta</ion-label>  
+          <ion-select [interfaceOptions]="customPopoverOptions" interface="popover" placeholder="Fisioterapeuta" [(ngModel)]="ficha.idEmpleado.idPersona"  >  
+              
+            <ion-select-option *ngFor="let fisioterapeuta of fisioterapeutas" value="{{fisioterapeuta.id}}">{{fisioterapeuta.nombre}}  </ion-select-option>  
+          </ion-select>  
+        </ion-item>
+        <ion-item>
+            <ion-label> <ion-icon name="contact"></ion-icon>Paciente</ion-label>  
+            <ion-select [interfaceOptions]="customPopoverOptions" interface="popover" placeholder="Paciente" [(ngModel)]="ficha.idCliente.idPersona" >  
+             
+              <ion-select-option *ngFor="let paciente of pacientes" value="{{paciente.id}}">{{paciente.nombre}}  </ion-select-option>  
+            </ion-select>  
+        </ion-item>
+        <ion-item>
+            <ion-label>Categoría</ion-label>  
+            <ion-select [interfaceOptions]="customPopoverOptions" interface="popover" placeholder="Categoría" [(ngModel)]="categoriaSeleccionado"  (ngModelChange)="categoriaSelec($event)" >  
+               
+              <ion-select-option *ngFor="let categoria  of categorias" value="{{categoria.id}}">{{categoria.nombre}}  </ion-select-option>  
+            </ion-select>  
+        </ion-item>
+        <ion-item>
+            <ion-label><ion-icon name="bookmark"></ion-icon>Sub-Categoría</ion-label>  
+            <ion-select [interfaceOptions]="customPopoverOptions" interface="popover" placeholder="Sub categoría" 
+            [(ngModel)]="ficha.idTipoProducto.idTipoProducto" >  
+            
+              <ion-select-option *ngFor="let subcategoria  of subcategorias" value="{{subcategoria.id}}">{{subcategoria.nombre}}  </ion-select-option>  
+            </ion-select>  
+        </ion-item>
+    <button ion-button (click) = "createFicha()" icon-start  style="border-radius: 3px;
+              background-color: #00a65a;
+              border-color: #008d4c;
+              box-shadow: none;
+              padding: 10px 16px;
+              margin-top: 5%;
+              margin-left: 35%;
+              border: 1px solid transparent;">
+              Agregar Ficha
+            </button>
+  
 </ion-content>

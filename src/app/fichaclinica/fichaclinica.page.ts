@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { NavController } from '@ionic/angular';
+import * as moment from 'moment';
+import { NgZone  } from '@angular/core';
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: 'app-fichaclinica',
@@ -12,45 +15,65 @@ export class FichaclinicaPage implements OnInit {
   public response_fisio: any;
   public fisioterapeutaSeleccionado:any;
   public pacienteSeleccionado:any;
-  public items: Array<{ paciente: string, fisioterapeuta:string }> = [];
+  public categoriaSeleccionado:any;
+  public subcategoriaSeleccionado:any;
+  public items: Array<{ paciente: string, fisioterapeuta:string, fecha:string, subcat: string }> = [];
   public fisioterapeutas: Array<{ id: any, nombre:string }> = [];
   public pacientes: Array<{ id: any, nombre:string }> = [];
+  public subcategorias: Array<{ id: any, nombre:string }> = [];
+  public categorias: Array<{ id: any, nombre:string }> = [];
   public desde:any=null;
   public hasta:any=null;
   response_paciente: any;
-  constructor(private http: HttpClient, public navCtrl: NavController) {
+  public filtros = {
+    fechaDesdeCadena: null,
+    fechaHastaCadena: null,
+    idCliente:{idPersona:null},
+    idEmpleado:{idPersona:null},
+    idTipoProducto:{idTipoProducto:null}
+  };
+  creacion: false;
+  constructor(private http: HttpClient, public navCtrl: NavController,private zone: NgZone,private route: ActivatedRoute) {
     
   }
 
   ngOnInit() {
     this.getFisioterapeutas();
     this.getPacientes();
+    this.getCategorias();
     this.getFichas();
+    
   }
   getFichas(){
+    console.log('get fichas', this.filtros)
     const url = 'http://gy7228.myfoscam.org:8080/stock-pwfe/fichaClinica';
-    let query  ={"fechaDesdeCadena":this.desde,"fechaHastaCadena":this.hasta};
-    let params = new HttpParams().set('ejemplo',JSON.stringify(query))
+   
+    let params = new HttpParams().set('ejemplo',JSON.stringify(this.filtros))
 
     this.http.get(url,{params:params}).subscribe((response) => {
-      console.log(response);
+      console.log(response, this.items.length);
       this.response = response;
-      for (let i = 0; i < this.response.totalDatos; i++) {
-        this.items.push({
-          paciente: this.response.lista[i].idCliente.nombre+' '+this.response.lista[i].idCliente.apellido,
-          fisioterapeuta: this.response.lista[i].idEmpleado.nombre + ' '+this.response.lista[i].idEmpleado.apellido,
-          
-          });
-      }
+      this.items = [];
+      this.zone.run(() => {
+        console.log('force update the screen');
+        
+        for (let i = 0; i < this.response.totalDatos; i++) {
+          this.items.push({
+            paciente: this.response.lista[i].idCliente.nombre+' '+this.response.lista[i].idCliente.apellido,
+            fisioterapeuta: this.response.lista[i].idEmpleado.nombre + ' '+this.response.lista[i].idEmpleado.apellido,
+            fecha: moment(this.response.lista[i].fechaHora).format("DD/MM/YYYY"),
+            subcat: this.response.lista[i].idTipoProducto.descripcion
+            });
+        }
+        console.log(this.items.length)
+      });
     });
   }
   createFicha(){
-    console.log('click')
     this.navCtrl.navigateForward('/fichaclinica-create');
   }
   getFisioterapeutas(){
     let params = new HttpParams().set('ejemplo',JSON.stringify({"soloUsuariosDelSistema":true}))
-    
     const url_fisio = 'http://gy7228.myfoscam.org:8080/stock-pwfe/persona';
     this.http.get(url_fisio,{params:params}).subscribe((response) => {
       console.log(response);
@@ -59,7 +82,6 @@ export class FichaclinicaPage implements OnInit {
         this.fisioterapeutas.push({
           id: this.response_fisio.lista[i].idPersona,
           nombre: this.response_fisio.lista[i].nombre + ' '+this.response_fisio.lista[i].apellido,
-          
           });
       }
     });
@@ -67,7 +89,6 @@ export class FichaclinicaPage implements OnInit {
   }
   getPacientes(){
     let params = new HttpParams().set('ejemplo',JSON.stringify({"soloUsuariosDelSistema":false}))
-    
     const url_fisio = 'http://gy7228.myfoscam.org:8080/stock-pwfe/persona';
     this.http.get(url_fisio,{params:params}).subscribe((response) => {
       console.log(response);
@@ -76,26 +97,74 @@ export class FichaclinicaPage implements OnInit {
         this.pacientes.push({
           id: this.response_paciente.lista[i].idPersona,
           nombre: this.response_paciente.lista[i].nombre + ' '+this.response_paciente.lista[i].apellido,
-          
+          });
+      }
+    });
+  }
+  fisioterapeutaSelec(fisioterapeuta){
+    this.filtros.idEmpleado.idPersona = fisioterapeuta;
+    this.getFichas();
+  }
+  pacienteSelec(paciente){
+    this.filtros.idCliente.idPersona = paciente;
+    this.getFichas();
+    console.log('hola', paciente);
+  }
+  desdeSelec(desde){
+    const date = moment(desde).format("YYYYMMDD");
+    this.filtros.fechaDesdeCadena = date;
+    this.getFichas();
+    //this.desde=this.desde.split("-");
+    console.log('hola', desde, date);
+  }
+  hastaSelec(hasta){
+    const date = moment(hasta).format("YYYYMMDD");
+    this.filtros.fechaHastaCadena = date;
+    this.getFichas();
+    console.log('hola', hasta);
+  }
+  categoriaSelec(categoria){
+    this.subcategorias = [];
+    this.subcategoriaSeleccionado = null;
+    this.getSubcategorias(categoria);
+    console.log('hola', categoria);
+  }
+  getCategorias(){
+    const url_fisio = 'http://gy7228.myfoscam.org:8080/stock-pwfe/categoria';
+    this.http.get(url_fisio).subscribe((response) => {
+      console.log(response);
+      this.response = response;
+      for (let i = 0; i <this.response.totalDatos; i++) {
+        this.categorias.push({
+          id: this.response.lista[i].idCategoria,
+          nombre: this.response.lista[i].descripcion,
+          });
+      }
+    });
+  }
+  getSubcategorias(categoria){
+    
+    let params = new HttpParams().set('ejemplo',JSON.stringify({"idCategoria":{"idCategoria":categoria}}));
+    const url_fisio = 'http://gy7228.myfoscam.org:8080/stock-pwfe/tipoProducto';
+    this.http.get(url_fisio,{params:params}).subscribe((response) => {
+      console.log(response);
+      this.response_paciente = response;
+      for (let i = 0; i <this.response_paciente.totalDatos; i++) {
+        this.subcategorias.push({
+          id: this.response_paciente.lista[i].idTipoProducto,
+          nombre: this.response_paciente.lista[i].descripcion,
           });
       }
     });
 
   }
-  fisioterapeutaSelec(fisioterapeuta){
-    console.log('hola', fisioterapeuta);
-  }
-  pacienteSelec(paciente){
-    console.log('hola', paciente);
-  }
-  desdeSelec(desde){
+  subcategoriaSelec(subcategoria){
+    this.filtros.idTipoProducto.idTipoProducto = parseInt(subcategoria);
     this.getFichas();
-    //this.desde=this.desde.split("-");
-    console.log('hola', desde);
+    console.log('sub categoria', subcategoria);
   }
-  hastaSelec(hasta){
-    this.getFichas();
-   // this.hasta=this.hasta.split("-");
-    console.log('hola', hasta);
+  cerrar(){
+    this.creacion = false;
+    this.route.queryParams = null;
   }
 }

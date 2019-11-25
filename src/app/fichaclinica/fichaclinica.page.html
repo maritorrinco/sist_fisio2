@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Fichas Clínicas <button ion-button (click) = "createFicha()" icon-start  shape="round">
+      Agregar
+    </button></ion-title>
+      
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+      <ion-item>
+        <ion-label>Filtrar por Fisioterapeuta</ion-label>  
+        <ion-select [interfaceOptions]="customPopoverOptions" interface="popover" placeholder="Seleccionar Fisioterapeuta" [(ngModel)]="fisioterapeutaSeleccionado"  (ngModelChange)="fisioterapeutaSelec($event)" >  
+          <ion-select-option *ngFor="let fisioterapeuta of fisioterapeutas" value="{{fisioterapeuta.id}}">{{fisioterapeuta.nombre}}  </ion-select-option>  
+        </ion-select>  
+      </ion-item>
+      <ion-item>
+          <ion-label>Filtrar por Pacientes</ion-label>  
+          <ion-select [interfaceOptions]="customPopoverOptions" interface="popover" placeholder="Seleccionar Paciente" [(ngModel)]="pacienteSeleccionado"  (ngModelChange)="pacienteSelec($event)" >  
+            <ion-select-option *ngFor="let paciente of pacientes" value="{{paciente.id}}">{{paciente.nombre}}  </ion-select-option>  
+          </ion-select>  
+      </ion-item>
+      <ion-item>  
+          <ion-label><ion-icon name="calendar"></ion-icon>
+           Desde</ion-label>  
+          <ion-datetime [(ngModel)]="desde" (ngModelChange)="desdeSelec($event)" displayFormat="DD/MM/YYYY" pickerFormat="YYYYMMDD" ></ion-datetime>  
+        </ion-item> 
+        <ion-item>  
+            <ion-label><ion-icon name="calendar"></ion-icon>
+             Hasta</ion-label>  
+            <ion-datetime [(ngModel)]="hasta" (ngModelChange)="hastaSelec($event)" displayFormat="DD/MM/YYYY" pickerFormat="YYYYMMDD"></ion-datetime>  
+          </ion-item>  
+    <ion-item *ngFor="let item of items">
+      <ion-icon name="clipboard" slot="start"></ion-icon>
+      <ion-label >Paciente: {{item.paciente}}</ion-label>  
+      <ion-label style="margin-left: 2%;">Fisioterapeuta: {{item.fisioterapeuta}}</ion-label>  
+    </ion-item>
+  </ion-list>
+</ion-content>

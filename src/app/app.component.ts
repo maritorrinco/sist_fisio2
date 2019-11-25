@@ -25,6 +25,11 @@ export class AppComponent {
       title: 'Pacientes',
       url: '/paciente',
       icon: 'people'
+    },
+    {
+      title: 'Fichas Clínicas',
+      url: '/fichaclinica',
+      icon: 'clipboard'
     }
   ];
 

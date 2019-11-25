@@ -18,7 +18,15 @@ const routes: Routes = [
   {
     path: 'paciente',
     loadChildren: () => import('./paciente/paciente.module').then( m => m.PacientePageModule)
+  },  {
+    path: 'fichaclinica',
+    loadChildren: () => import('./fichaclinica/fichaclinica.module').then( m => m.FichaclinicaPageModule)
+  },
+  {
+    path: 'fichaclinica-create',
+    loadChildren: () => import('./fichaclinica-create/fichaclinica-create.module').then( m => m.FichaclinicaCreatePageModule)
   }
+
 ];
 
 @NgModule({

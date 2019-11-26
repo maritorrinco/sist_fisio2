@@ -25,6 +25,10 @@ const routes: Routes = [
   {
     path: 'fichaclinica-create',
     loadChildren: () => import('./fichaclinica-create/fichaclinica-create.module').then( m => m.FichaclinicaCreatePageModule)
+  },
+  {
+    path: 'fichaclinica-update',
+    loadChildren: () => import('./fichaclinica-update/fichaclinica-update.module').then( m => m.FichaclinicaUpdatePageModule)
   }
 
 ];

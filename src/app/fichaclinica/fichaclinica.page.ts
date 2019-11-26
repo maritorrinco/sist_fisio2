@@ -4,6 +4,7 @@ import { NavController } from '@ionic/angular';
 import * as moment from 'moment';
 import { NgZone  } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
+import { NavigationExtras } from '@angular/router';
 
 @Component({
   selector: 'app-fichaclinica',
@@ -17,7 +18,8 @@ export class FichaclinicaPage implements OnInit {
   public pacienteSeleccionado:any;
   public categoriaSeleccionado:any;
   public subcategoriaSeleccionado:any;
-  public items: Array<{ paciente: string, fisioterapeuta:string, fecha:string, subcat: string, files:Array<{ idFichaArchivo: string, nombre: string, urlImagen: string }> }> = [];
+  public items: Array<{ paciente: string, fisioterapeuta:string, fecha:string, subcat: string, 
+    files:Array<{ idFichaArchivo: string, nombre: string, urlImagen: string }>, id:any }> = [];
   public fisioterapeutas: Array<{ id: any, nombre:string }> = [];
   public pacientes: Array<{ id: any, nombre:string }> = [];
   public subcategorias: Array<{ id: any, nombre:string }> = [];
@@ -71,7 +73,8 @@ export class FichaclinicaPage implements OnInit {
               fisioterapeuta: this.response.lista[i].idEmpleado.nombre + ' '+this.response.lista[i].idEmpleado.apellido,
               fecha: moment(this.response.lista[i].fechaHora).format("DD/MM/YYYY"),
               subcat: this.response.lista[i].idTipoProducto.descripcion,
-              files: files_array
+              files: files_array,
+              id: this.response.lista[i].idFichaClinica
               });
           });
         }
@@ -177,5 +180,16 @@ export class FichaclinicaPage implements OnInit {
   cerrar(){
     this.creacion = false;
     this.route.queryParams = null;
+  }
+  edit(item){
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+          idFicha: item,
+          
+      }
+  };
+  console.log('item',item)
+    this.navCtrl.navigateForward('/fichaclinica-update',navigationExtras);
+   
   }
 }

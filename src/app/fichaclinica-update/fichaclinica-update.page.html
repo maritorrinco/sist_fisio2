@@ -1,0 +1,31 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+          </ion-buttons>
+      <ion-title>Editar Ficha Clínica</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content>
+    
+     
+      
+      <ion-item>
+          <ion-label>Observación</ion-label>
+          <ion-textarea [(ngModel)]="ficha.observacion" name="observacion"></ion-textarea>
+        </ion-item>
+        
+      <button ion-button (click) = "editFicha()" icon-start  style="border-radius: 3px;
+                background-color: #00a65a;
+                border-color: #008d4c;
+                box-shadow: none;
+                padding: 10px 16px;
+                margin-top: 5%;
+                margin-left: 35%;
+                border: 1px solid transparent;">
+                Editar Ficha
+              </button>
+    
+  </ion-content>
+  

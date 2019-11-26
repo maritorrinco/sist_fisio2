@@ -1,26 +1,19 @@
 import { Component, OnInit, NgZone } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { NavController } from '@ionic/angular';
+import { ActivatedRoute } from "@angular/router";
 @Component({
-  selector: 'app-fichaclinica-create',
-  templateUrl: './fichaclinica-create.page.html',
-  styleUrls: ['./fichaclinica-create.page.scss'],
+  selector: 'app-fichaclinica-update',
+  templateUrl: './fichaclinica-update.page.html',
+  styleUrls: ['./fichaclinica-update.page.scss'],
 })
-export class FichaclinicaCreatePage implements OnInit {
+export class FichaclinicaUpdatePage implements OnInit {
+
   public ficha={
-    motivoConsulta: null, 
-    diagnostico:null,
+    idFichaClinica: null, 
+    
     observacion:null,
-    idEmpleado:{
-      idPersona:null 
-    }, 
-    idCliente:{
-        idPersona:null 
-    },
-    idTipoProducto:
-    {
-      idTipoProducto:null 
-    } 
+    
   };
   public response_fisio: any;
   public pacientes: Array<{ id: any, nombre:string }> = [];
@@ -32,12 +25,31 @@ export class FichaclinicaCreatePage implements OnInit {
   public categoriaSeleccionado:any;
   response_paciente: any;
   response: any;
-  constructor(private http: HttpClient, public navCtrl: NavController,private zone: NgZone) { }
+  idFicha: any;
+  response_ficha:any;
+  constructor(private http: HttpClient, public navCtrl: NavController,private zone: NgZone,private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.getFisioterapeutas();
-    this.getPacientes();
-    this.getCategorias();
+    
+    this.getFicha();
+  }
+  getFicha(){
+    this.route.queryParams.subscribe(params => {
+      this.idFicha = params["idFicha"];
+    });
+    const url_fisio = 'http://gy7228.myfoscam.org:8080/stock-pwfe/fichaClinica/'+this.idFicha;
+    this.http.get(url_fisio).subscribe((response) => {
+      console.log('ficha',response);
+      this.response_ficha = response;
+    
+      this.ficha.observacion = this.response_ficha.observacion;
+      this.ficha.idFichaClinica = this.response_ficha.idFichaClinica;
+    
+      console.log('this',this.ficha);
+      
+      
+    });
+    console.log('recibe',this.idFicha)
   }
   getFisioterapeutas(){
     let params = new HttpParams().set('ejemplo',JSON.stringify({"soloUsuariosDelSistema":true}))
@@ -103,7 +115,7 @@ export class FichaclinicaCreatePage implements OnInit {
     this.getSubcategorias(categoria);
     console.log('hola', categoria);
   }
-  createFicha(){
+  editFicha(){
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json', 
@@ -112,10 +124,12 @@ export class FichaclinicaCreatePage implements OnInit {
     };
     
     const url_ficha = 'http://gy7228.myfoscam.org:8080/stock-pwfe/fichaClinica';
-    this.http.post(url_ficha,this.ficha,httpOptions).subscribe((response) => {
+    this.http.put(url_ficha,this.ficha,httpOptions).subscribe((response) => {
       console.log(response,'post');
       
       this.navCtrl.navigateForward('/fichaclinica');
     });
   }
+  
+
 }

@@ -27,6 +27,11 @@ export class AppComponent {
       icon: 'people'
     },
     {
+      title: 'Logout',
+      url: '/login',
+      icon: 'log-out'
+    },
+    {
       title: 'Fichas Clínicas',
       url: '/fichaclinica',
       icon: 'clipboard'

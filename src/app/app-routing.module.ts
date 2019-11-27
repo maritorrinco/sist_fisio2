@@ -20,8 +20,20 @@ const routes: Routes = [
     loadChildren: () => import('./paciente/paciente.module').then( m => m.PacientePageModule)
   },
   {
+    path: 'fichaclinica',
+    loadChildren: () => import('./fichaclinica/fichaclinica.module').then( m => m.FichaclinicaPageModule)
+  },
+  {
+    path: 'fichaclinica-create',
+    loadChildren: () => import('./fichaclinica-create/fichaclinica-create.module').then( m => m.FichaclinicaCreatePageModule)
+  },
+  {
     path: 'login',
     loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
+  },
+  {
+    path: 'fichaclinica-update',
+    loadChildren: () => import('./fichaclinica-update/fichaclinica-update.module').then( m => m.FichaclinicaUpdatePageModule)
   }
 ];
 

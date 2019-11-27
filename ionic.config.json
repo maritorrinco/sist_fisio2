@@ -1,5 +1,7 @@
 {
   "name": "sist_fisio2",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

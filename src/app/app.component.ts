@@ -30,6 +30,11 @@ export class AppComponent {
       title: 'Logout',
       url: '/login',
       icon: 'log-out'
+    },
+    {
+      title: 'Fichas Clínicas',
+      url: '/fichaclinica',
+      icon: 'clipboard'
     }
   ];
 

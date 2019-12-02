@@ -10,6 +10,9 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
 import { HttpClientModule } from '@angular/common/http';
+import { ReservaPageModule } from './reserva_turnos/reserva/reserva.module';
+import { ReservaListPageModule } from './reserva_turnos/reserva-list/reserva-list.module';
+import { ReservaCreatePageModule } from './reserva_turnos/reserva-create/reserva-create.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -18,7 +21,10 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserModule,
     HttpClientModule,
     IonicModule.forRoot(),
-    AppRoutingModule
+    AppRoutingModule,
+    ReservaPageModule,
+    ReservaListPageModule,
+    ReservaCreatePageModule
   ],
   providers: [
     StatusBar,

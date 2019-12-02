@@ -1,0 +1,65 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-button color="danger" (click)="dismiss()">
+              <span ion-text color="primary" showWhen="ios"></span>
+              <ion-icon name="md-close" showWhen="android,windows"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+      <ion-title>Filtrar por Fisioterapeuta</ion-title>
+    </ion-toolbar>
+
+
+
+
+
+    
+
+</ion-header>
+
+<ion-content>
+    <ion-list>
+        <ion-item>
+          <ion-label> Fecha Desde</ion-label>
+          <ion-datetime displayFormat="MMM DD, YYYY" [(ngModel)]="fechaDesdeCadena"></ion-datetime>
+          <ion-icon name="calendar" slot="end"></ion-icon>
+          </ion-item>
+  
+  
+        <ion-item>
+          <ion-label>Fecha Hasta</ion-label>
+          <ion-datetime displayFormat="MMM DD, YYYY" [(ngModel)]="fechaHastaCadena"></ion-datetime>
+          <ion-icon name="calendar" slot="end"></ion-icon>
+        </ion-item>
+  
+  
+        <ion-item>
+            <ion-label>Paciente</ion-label>
+            <ion-select [(ngModel)]="queryList.idCliente.idPersona">
+                <ion-select-option [value]="fs.idPersona" *ngFor="let fs of personasList.lista">{{fs.nombre + ' ' + fs.apellido}}</ion-select-option>
+            </ion-select>
+            <ion-icon name="logo-python" slot="end"></ion-icon>
+        </ion-item>
+  
+  
+        <ion-item>
+            <ion-label>Fisioterapeuta</ion-label>
+            <ion-select [(ngModel)]="queryList.idEmpleado.idPersona">
+                <ion-select-option [value]="ps.idPersona" *ngFor="let ps of fisioterapeutaList.lista">{{ps.nombre + ' ' + ps.apellido}}</ion-select-option>
+            </ion-select>
+            <ion-icon name="beer" slot="end"></ion-icon>
+        </ion-item>
+      </ion-list>
+</ion-content>
+
+
+<ion-footer>
+    <ion-grid>
+      <ion-row>
+          <ion-button  (click)="dismiss()">
+              <ion-icon slot="end" name="search"></ion-icon>
+            Buscar 
+          </ion-button>
+      </ion-row>
+    </ion-grid>
+  </ion-footer>

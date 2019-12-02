@@ -18,7 +18,29 @@ const routes: Routes = [
   {
     path: 'paciente',
     loadChildren: () => import('./paciente/paciente.module').then( m => m.PacientePageModule)
-  }
+  },
+  {
+    path: 'tabs',
+    loadChildren: () => import('./tabs/tabs.module').then( m => m.TabsPageModule)
+  },
+  {
+    path: 'reserva-list',
+    loadChildren: () => import('./reserva_turnos/reserva-list/reserva-list.module').then( m => m.ReservaListPageModule)
+  },
+  {
+    path: 'reserva/:id',
+    loadChildren: () => import('./reserva_turnos/reserva/reserva.module').then( m => m.ReservaPageModule)
+  },  {
+    path: 'reserva-create',
+    loadChildren: () => import('./reserva_turnos/reserva-create/reserva-create.module').then( m => m.ReservaCreatePageModule)
+  },
+  {
+    path: 'reserva-edit',
+    loadChildren: () => import('./reserva_turnos/reserva-edit/reserva-edit.module').then( m => m.ReservaEditPageModule)
+  },
+
+ 
+
 ];
 
 @NgModule({

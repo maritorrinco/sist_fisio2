@@ -25,6 +25,12 @@ export class AppComponent {
       title: 'Pacientes',
       url: '/paciente',
       icon: 'people'
+    },
+    {
+      title: 'Reserva',
+      url: '/reserva-list',
+      icon: 'people'
+
     }
   ];
 

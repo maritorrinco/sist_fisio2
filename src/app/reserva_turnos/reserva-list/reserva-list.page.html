@@ -1,0 +1,55 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Reserva List
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-button (click)="openModalFilter()" end >
+        <ion-icon slot="end" name="search"></ion-icon>
+      Buscar 
+    </ion-button>
+
+    <ion-button (click)="openModalCreate()" end >
+        <ion-icon slot="end" name="add"></ion-icon>
+      Crear 
+    </ion-button>
+    
+
+
+
+  <ion-list>
+    <ion-item *ngFor="let cr of reservasList">
+      <ion-icon name="contact" slot="start"></ion-icon>
+
+      <ion-label text-wrap>
+          <h3>{{cr.idCliente.nombre + ' ' + cr.idCliente.apellido}}</h3>
+          <h3> Fisioterapeuta {{cr.idEmpleado.nombre + ' ' + cr.idEmpleado.apellido}}</h3>
+          <h4> {{cr.idLocal.nombre}}</h4>
+          <h4>{{cr.fecha}}</h4>
+          <h4> {{cr.horaInicio}}</h4>
+          <h4> {{cr.flagAsistio}}</h4>
+        
+      </ion-label>
+
+     
+      <ion-icon *ngIf="mostrarItem(cr)" slot="end" color="success"  name="create"  (click)="myFunction(cr)"></ion-icon>
+      <ion-icon slot="end" *ngIf="mostrarItem(cr)" color="danger"  name="trash"  (click)="deleteReserva(cr.idReserva)"></ion-icon>
+     
+      
+     
+      
+    
+    </ion-item>
+  </ion-list>
+  <!--
+    <div *ngIf="selectedItem" padding>
+      You navigated here from <b>{{selectedItem.title }}</b>
+    </div>
+  -->
+</ion-content>

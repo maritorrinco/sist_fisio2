@@ -27,6 +27,11 @@ export class AppComponent {
       icon: 'people'
     },
     {
+      title: 'Reserva',
+      url: '/reserva-list',
+      icon: 'people'
+    },
+    {
       title: 'Fichas Clínicas',
       url: '/fichaclinica',
       icon: 'clipboard'

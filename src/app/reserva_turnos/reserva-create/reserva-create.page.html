@@ -1,0 +1,89 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Crear Reserva</ion-title>
+  </ion-toolbar>
+
+      <ion-buttons slot="start">
+          <ion-button color="danger" (click)="dismissCreate()">
+            <span ion-text color="primary" showWhen="ios"></span>
+            <ion-icon name="md-close" showWhen="android,windows"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+
+
+
+
+
+</ion-header>
+
+
+
+
+<ion-content>
+
+    <ion-list>
+        <ion-item>
+            <ion-label>Fecha</ion-label>
+            <ion-datetime displayFormat="MMM DD, YYYY" [(ngModel)]="fechaCadena" 
+            
+            (ionChange)="onSelectChangeDate($event)" max="2021-01-01"></ion-datetime>
+            <ion-icon name="calendar"></ion-icon>
+          </ion-item>
+  
+  
+        <ion-item>
+            <ion-label>Paciente</ion-label>
+            <ion-select [(ngModel)]="queryPost.idCliente.idPersona">
+                <ion-select-option [value]="fs.idPersona" *ngFor="let fs of personasList.lista">{{fs.nombre + ' ' + fs.apellido}}</ion-select-option>
+            </ion-select>
+            <ion-icon name="logo-python" slot="end"></ion-icon>
+        </ion-item>
+  
+  
+        <ion-item>
+            <ion-label>Fisio</ion-label>
+            <ion-select [(ngModel)]="queryPost.idEmpleado.idPersona" (ionChange)="onSelectChangeFisio($event)">
+                <ion-select-option [value]="ps.idPersona" *ngFor="let ps of fisioterapeutaList.lista">{{ps.nombre + ' ' + ps.apellido}}</ion-select-option>
+            </ion-select>
+            <ion-icon name="beer" slot="end"></ion-icon>
+        </ion-item>
+
+        <ion-item>
+            <ion-label>Horario</ion-label>
+            <ion-select [(ngModel)]="horario">
+                <ion-select-option [value]="hs" *ngFor="let hs of horarioList">
+                    <ion-label>
+                    <div>{{hs.horaInicioCadena.substring(0,2)+':'+hs.horaInicioCadena.substring(2,4)}}</div>
+                    <div>{{' - '+hs.horaFinCadena.substring(0,2)+':'+hs.horaFinCadena.substring(2,4)}}</div>
+                    </ion-label>
+                </ion-select-option>
+            </ion-select>
+            <ion-icon name="beer" slot="end"></ion-icon>
+        </ion-item>
+
+        <ion-item>
+          <ion-input  [(ngModel)]="queryPost.observacion" ></ion-input>
+          <ion-icon name="create" slot="end"></ion-icon>
+        </ion-item>
+
+
+
+
+
+      </ion-list>
+
+
+</ion-content>
+
+
+
+<ion-footer>
+    <ion-grid>
+      <ion-row>
+          <ion-button  (click)="guardar()">
+              <ion-icon slot="end" name="add"></ion-icon>
+            Crear 
+          </ion-button>
+      </ion-row>
+    </ion-grid>
+</ion-footer>

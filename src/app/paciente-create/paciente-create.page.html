@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Agregar Paciente</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>  
+  <ion-item>
+    <ion-label>Nombre</ion-label>
+    <ion-input type="text" [(ngModel)]="persona.nombre" name="nombre"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>Apellido</ion-label>
+    <ion-input type="text" [(ngModel)]="persona.apellido" name="apellido"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>Email</ion-label>
+    <ion-input type="text" [(ngModel)]="persona.email" name="email"></ion-input>
+  </ion-item>  
+  <ion-item>
+    <ion-label>Telefono</ion-label>
+    <ion-input type="text" [(ngModel)]="persona.telefono" name="telefono"></ion-input>
+  </ion-item> 
+  <ion-item>
+    <ion-label>Ruc</ion-label>
+    <ion-input type="text" [(ngModel)]="persona.ruc" name="ruc"></ion-input>
+  </ion-item> 
+  <ion-item>
+    <ion-label>Cedula</ion-label>
+    <ion-input type="text" [(ngModel)]="persona.cedula" name="cedula"></ion-input>
+  </ion-item> 
+  <ion-item>
+    <ion-label>Tipo Persona</ion-label>
+    <ion-input type="text" [(ngModel)]="persona.tipoPersona" name="tipoPersona"></ion-input>
+  </ion-item> 
+  <ion-item>
+    <ion-label position="floating">Fecha Nacimiento</ion-label>
+    <ion-datetime displayFormat="YYYY-MM-DD" pickerFormat="YYYY/DD/MM" [(ngModel)]="myDate"></ion-datetime>
+  </ion-item>
+
+  <button ion-button (click) = "createPersona()" icon-start  style="border-radius: 3px;
+    background-color: #00a65a;
+    border-color: #008d4c;
+    box-shadow: none;
+    padding: 10px 16px;
+    margin-top: 5%;
+    margin-left: 35%;
+    border: 1px solid transparent;">
+    Agregar Paciente  
+  </button>
+  </ion-content>

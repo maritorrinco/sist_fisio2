@@ -16,11 +16,11 @@ export class AppComponent {
       url: '/home',
       icon: 'home'
     },
-    {
+    /*{
       title: 'List',
       url: '/list',
       icon: 'list'
-    },
+    },*/
     {
       title: 'Pacientes',
       url: '/paciente',
@@ -30,8 +30,17 @@ export class AppComponent {
       title: 'Reserva',
       url: '/reserva-list',
       icon: 'people'
-
-    }
+    },
+    {
+      title: 'Fichas Clínicas',
+      url: '/fichaclinica',
+      icon: 'clipboard'
+    },
+    {
+      title: 'Logout',
+      url: '/login',
+      icon: 'log-out'
+    },
   ];
 
   constructor(

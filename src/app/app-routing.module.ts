@@ -4,7 +4,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'login',
     pathMatch: 'full'
   },
   {
@@ -30,7 +30,8 @@ const routes: Routes = [
   {
     path: 'reserva/:id',
     loadChildren: () => import('./reserva_turnos/reserva/reserva.module').then( m => m.ReservaPageModule)
-  },  {
+  },
+  {
     path: 'reserva-create',
     loadChildren: () => import('./reserva_turnos/reserva-create/reserva-create.module').then( m => m.ReservaCreatePageModule)
   },
@@ -38,9 +39,30 @@ const routes: Routes = [
     path: 'reserva-edit',
     loadChildren: () => import('./reserva_turnos/reserva-edit/reserva-edit.module').then( m => m.ReservaEditPageModule)
   },
-
- 
-
+  {
+    path: 'fichaclinica',
+    loadChildren: () => import('./fichaclinica/fichaclinica.module').then( m => m.FichaclinicaPageModule)
+  },
+  {
+    path: 'fichaclinica-create',
+    loadChildren: () => import('./fichaclinica-create/fichaclinica-create.module').then( m => m.FichaclinicaCreatePageModule)
+  },
+  {
+    path: 'login',
+    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
+  },
+  {
+    path: 'fichaclinica-update',
+    loadChildren: () => import('./fichaclinica-update/fichaclinica-update.module').then( m => m.FichaclinicaUpdatePageModule)
+  },
+  {
+    path: 'paciente-create',
+    loadChildren: () => import('./paciente-create/paciente-create.module').then( m => m.PacienteCreatePageModule)
+  },
+  {
+    path: 'paciente-update-delete',
+    loadChildren: () => import('./paciente-update-delete/paciente-update-delete.module').then( m => m.PacienteUpdateDeletePageModule)
+  }
 ];
 
 @NgModule({

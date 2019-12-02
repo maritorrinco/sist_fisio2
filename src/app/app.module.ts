@@ -14,6 +14,12 @@ import { ReservaPageModule } from './reserva_turnos/reserva/reserva.module';
 import { ReservaListPageModule } from './reserva_turnos/reserva-list/reserva-list.module';
 import { ReservaCreatePageModule } from './reserva_turnos/reserva-create/reserva-create.module';
 
+import { FileTransfer } from '@ionic-native/file-transfer/ngx';
+import { FileChooser } from '@ionic-native/file-chooser/ngx';
+import { FilePath } from '@ionic-native/file-path/ngx';
+import { File } from '@ionic-native/file/ngx';
+
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -29,6 +35,10 @@ import { ReservaCreatePageModule } from './reserva_turnos/reserva-create/reserva
   providers: [
     StatusBar,
     SplashScreen,
+    FileTransfer,
+    FileChooser,
+    FilePath,
+    File,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

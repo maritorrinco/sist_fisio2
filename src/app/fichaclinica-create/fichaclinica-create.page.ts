@@ -118,7 +118,9 @@ export class FichaclinicaCreatePage implements OnInit {
     this.http.post(url_ficha,this.ficha,httpOptions).subscribe((response) => {
       console.log(response,'post');
       this.response_fichaCreada = response;
-      this.addFiles(this.response_fichaCreada.idFichaClinica);
+      if (this.filesUp.length){
+        this.addFiles(this.response_fichaCreada.idFichaClinica);
+      }
       this.navCtrl.navigateForward('/fichaclinica');
     });
   }

@@ -16,26 +16,26 @@ export class AppComponent {
       url: '/home',
       icon: 'home'
     },
-    {
+    /*{
       title: 'List',
       url: '/list',
       icon: 'list'
-    },
+    },*/
     {
       title: 'Pacientes',
       url: '/paciente',
       icon: 'people'
     },
     {
+      title: 'Fichas Clínicas',
+      url: '/fichaclinica',
+      icon: 'clipboard'
+    },
+    {
       title: 'Logout',
       url: '/login',
       icon: 'log-out'
     },
-    {
-      title: 'Fichas Clínicas',
-      url: '/fichaclinica',
-      icon: 'clipboard'
-    }
   ];
 
   constructor(

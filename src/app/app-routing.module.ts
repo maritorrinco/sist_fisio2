@@ -34,7 +34,8 @@ const routes: Routes = [
   {
     path: 'fichaclinica-update',
     loadChildren: () => import('./fichaclinica-update/fichaclinica-update.module').then( m => m.FichaclinicaUpdatePageModule)
-  },  {
+  },
+  {
     path: 'paciente-create',
     loadChildren: () => import('./paciente-create/paciente-create.module').then( m => m.PacienteCreatePageModule)
   },
@@ -42,7 +43,6 @@ const routes: Routes = [
     path: 'paciente-update-delete',
     loadChildren: () => import('./paciente-update-delete/paciente-update-delete.module').then( m => m.PacienteUpdateDeletePageModule)
   }
-
 ];
 
 @NgModule({

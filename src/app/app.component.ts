@@ -30,7 +30,12 @@ export class AppComponent {
       title: 'Fichas Clínicas',
       url: '/fichaclinica',
       icon: 'clipboard'
-    }
+    },
+    {
+      title: 'Logout',
+      url: '/login',
+      icon: 'log-out'
+    },
   ];
 
   constructor(

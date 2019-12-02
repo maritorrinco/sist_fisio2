@@ -32,6 +32,9 @@ export class FichaclinicaCreatePage implements OnInit {
   public categoriaSeleccionado:any;
   response_paciente: any;
   response: any;
+  response_fichaCreada : any;
+  //public files: Array<{ idFichaArchivo: string, nombre: string, urlImagen: string }> = [];
+  public filesUp: any = [];
   constructor(private http: HttpClient, public navCtrl: NavController,private zone: NgZone) { }
 
   ngOnInit() {
@@ -114,8 +117,35 @@ export class FichaclinicaCreatePage implements OnInit {
     const url_ficha = 'http://gy7228.myfoscam.org:8080/stock-pwfe/fichaClinica';
     this.http.post(url_ficha,this.ficha,httpOptions).subscribe((response) => {
       console.log(response,'post');
-      
+      this.response_fichaCreada = response;
+      this.addFiles(this.response_fichaCreada.idFichaClinica);
       this.navCtrl.navigateForward('/fichaclinica');
     });
+  }
+  changeListener($event) {
+    this.filesUp = [];
+    this.zone.run(() => {
+      this.filesUp.push($event.target.files);
+    });
+    console.log(this.filesUp);
+  }
+  addFiles(idFicha){
+    const formData = new FormData();
+    for (let i = 0; i < this.filesUp[0].length; i++){
+      formData.append('file', this.filesUp[0][i]);
+      formData.append('nombre', this.filesUp[0][i].name);
+      formData.append('idFichaClinica', idFicha);
+      console.log("formDATA===", formData, this.filesUp[0][i]);
+
+      this.http.post("http://gy7228.myfoscam.org:8080/stock-pwfe/fichaArchivo/archivo",formData)
+      .subscribe((data:any)=>{
+        console.log(data);    
+      },
+      error => {
+      },
+      () => {
+        console.log("ok");
+      })    
+    }
   }
 }

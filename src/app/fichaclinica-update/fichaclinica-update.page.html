@@ -24,8 +24,51 @@
                 margin-top: 5%;
                 margin-left: 35%;
                 border: 1px solid transparent;">
-                Editar Ficha
+                Guardar descripción
               </button>
-    
+
+              <p style="margin: unset;
+              font-weight: bold;
+              padding: 10px 10px 10px 16px;
+              margin-top: 15px;">Archivos</p>
+  
+    <div *ngFor="let file of files" style="padding: 16px; background: #efefef;border-top: solid gray;">
+      {{ file.nombre }} 
+      <!-- <a href="{{file.urlImagen}}" style="float: right;font-size: 25px;"><ion-icon style="color:#f39c12;" name="download"></ion-icon></a> -->
+      <!-- <div (click) = download(file)><ion-icon style="color:#f39c12;" name="download"></ion-icon></div> -->
+      <label (click)="delete(file.idFichaArchivo)" style="
+      font-size: 30px;
+      float: right;">
+        <ion-icon style="color:#f39c12;" name="trash"></ion-icon>
+      </label>
+      <br />
+      <img src="{{file.urlImagen}}" onerror="this.style.display='none'" style="padding-top: 10px;">
+    </div>
+    <div *ngIf="files.length == 0" style="background: #efefef;padding: 16px;">  
+        No hay archivos
+    </div> 
+    <div style="background: #efefef;padding: 16px;">
+      <label class="custom-file-upload">
+        Agregar Archivo
+        <input type="file" id="myFile"  (change)="changeListener($event)" multiple>
+      </label>
+      
+        <!-- <button ion-button (click)="uploadFile()" style="border-radius: 3px;
+        background-color: #f39c12;
+        border-color: #e08e0b;
+        box-shadow: none;
+        padding: 10px 16px;
+        border: 1px solid transparent;">
+        Agregar Archivo
+      </button> {{uploadText}}
+      <button ion-button (click)="abortUpload()" style="border-radius: 3px;
+        background-color: #f39c12;
+        border-color: #e08e0b;
+        box-shadow: none;
+        padding: 10px 16px;
+        border: 1px solid transparent;">
+        Cancelar Subida
+      </button> -->
+    </div>
   </ion-content>
   

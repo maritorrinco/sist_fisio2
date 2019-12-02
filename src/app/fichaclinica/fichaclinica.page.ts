@@ -18,8 +18,7 @@ export class FichaclinicaPage implements OnInit {
   public pacienteSeleccionado:any;
   public categoriaSeleccionado:any;
   public subcategoriaSeleccionado:any;
-  public items: Array<{ paciente: string, fisioterapeuta:string, fecha:string, subcat: string, 
-    files:Array<{ idFichaArchivo: string, nombre: string, urlImagen: string }>, id:any }> = [];
+  public items: Array<{ paciente: string, fisioterapeuta:string, fecha:string, subcat: string, id:any }> = [];
   public fisioterapeutas: Array<{ id: any, nombre:string }> = [];
   public pacientes: Array<{ id: any, nombre:string }> = [];
   public subcategorias: Array<{ id: any, nombre:string }> = [];
@@ -27,7 +26,6 @@ export class FichaclinicaPage implements OnInit {
   public desde:any=null;
   public hasta:any=null;
   response_paciente: any;
-  response_archivo: any;
   public filtros = {
     fechaDesdeCadena: null,
     fechaHastaCadena: null,
@@ -62,21 +60,13 @@ export class FichaclinicaPage implements OnInit {
         
         for (let i = 0; i < this.response.totalDatos; i++) {
           let getFilesParams = new HttpParams().set('idFichaClinica', this.response.lista[i].idFichaClinica)
-          this.http.get('http://gy7228.myfoscam.org:8080/stock-pwfe/fichaArchivo',{params:getFilesParams}).subscribe((response_archivo) => {
-            this.response_archivo = response_archivo;
-            let files_array = [];
-            for (let j = 0; j < this.response_archivo.totalDatos; j++){
-              files_array.push({ idFichaArchivo: this.response_archivo.lista[j].idFichaArchivo, nombre: this.response_archivo.lista[j].nombre, urlImagen: this.response_archivo.lista[j].urlImagen });
-            }
             this.items.push({
               paciente: this.response.lista[i].idCliente.nombre+' '+this.response.lista[i].idCliente.apellido,
               fisioterapeuta: this.response.lista[i].idEmpleado.nombre + ' '+this.response.lista[i].idEmpleado.apellido,
               fecha: moment(this.response.lista[i].fechaHora).format("DD/MM/YYYY"),
               subcat: this.response.lista[i].idTipoProducto.descripcion,
-              files: files_array,
               id: this.response.lista[i].idFichaClinica
-              });
-          });
+            });
         }
         console.log('FICHAS======', this.items);
         console.log(this.items.length)

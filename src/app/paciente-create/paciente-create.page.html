@@ -33,12 +33,25 @@
     <ion-input type="text" [(ngModel)]="persona.cedula" name="cedula"></ion-input>
   </ion-item> 
   <ion-item>
-    <ion-label>Tipo Persona</ion-label>
-    <ion-input type="text" [(ngModel)]="persona.tipoPersona" name="tipoPersona"></ion-input>
-  </ion-item> 
-  <ion-item>
     <ion-label position="floating">Fecha Nacimiento</ion-label>
     <ion-datetime displayFormat="YYYY-MM-DD" pickerFormat="YYYY/DD/MM" [(ngModel)]="myDate"></ion-datetime>
+  </ion-item>
+  <ion-item>
+    <ion-radio-group [(ngModel)]="persona.tipoPersona">
+      <ion-list-header>
+        <ion-label>Tipo Persona</ion-label>
+      </ion-list-header>
+  
+      <ion-item>
+        <ion-label>Juridica</ion-label>
+        <ion-radio slot="start" value="JURIDICA" checked></ion-radio>
+      </ion-item>
+  
+      <ion-item>
+        <ion-label>Fisica</ion-label>
+        <ion-radio slot="start" value="FISICA"></ion-radio>
+      </ion-item>
+    </ion-radio-group>
   </ion-item>
 
   <button ion-button (click) = "createPersona()" icon-start  style="border-radius: 3px;

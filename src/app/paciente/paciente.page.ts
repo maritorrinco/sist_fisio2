@@ -3,6 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { NgZone  } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { NavigationExtras } from '@angular/router';
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: 'app-paciente',
@@ -18,14 +19,20 @@ export class PacientePage implements OnInit {
   public filtros = {
     nombre: null,
     apellido: null
-  };
+  };  
   
-  constructor(private http: HttpClient,private zone: NgZone,public navCtrl: NavController) {console.log("Funcionaa entra aca");};
-  ngOnInit() {
+  constructor(private route: ActivatedRoute,private http: HttpClient,private zone: NgZone,public navCtrl: NavController) {console.log("Funcionaa entra aca");};
+  ngOnInit() {    
     this.filtros.nombre=null;
     this.filtros.apellido=null;
+    this.route.queryParams.subscribe(params => {            
+      if(params["nombre"]!= "null" && params["apellido"] !="null" ){        
+        this.filtros.nombre = params["nombre"];
+        this.filtros.apellido = params["apellido"];
+      }      
+    });  
     this.getPersonas();
-    this.personasfiltro();    
+    this.personasfiltro();      
   }
   personasfiltro(){
     this.http.get('http://gy7228.myfoscam.org:8080/stock-pwfe/persona').subscribe((response) => {
@@ -77,5 +84,14 @@ export class PacientePage implements OnInit {
       }
     };  
     this.navCtrl.navigateRoot('/paciente-update-delete',navigationExtras);    
+  }
+  filtroVentana(){
+    console.log("Alejandro f");
+    this.navCtrl.navigateRoot('/paciente-filtro');
+  }
+  Limpiar(){
+    this.filtros.nombre = null;
+    this.filtros.apellido = null;
+    this.getPersonas();
   }
 }

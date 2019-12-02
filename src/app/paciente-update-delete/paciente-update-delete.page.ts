@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
-import { HttpClient,HttpHeaders } from '@angular/common/http';
+import { HttpClient,HttpHeaders, HttpParams } from '@angular/common/http';
 import { AlertController } from '@ionic/angular';
 import { NavController } from '@ionic/angular';
 import * as moment from 'moment';
@@ -25,6 +25,11 @@ export class PacienteUpdateDeletePage implements OnInit {
     tipoPersona: null, 
     fechaNacimiento: null
   }
+  public filtros = {
+    idCliente:{idPersona:null}
+  };
+  response:any;
+  public status = true;
   constructor(private http: HttpClient,private route: ActivatedRoute,
     public alertController: AlertController,public navCtrl: NavController) { }
 
@@ -40,6 +45,7 @@ export class PacienteUpdateDeletePage implements OnInit {
       tipoPersona: null, 
       fechaNacimiento: null
     }
+    this.status = true;
     this.getPersona();
   }
   getPersona(){
@@ -47,7 +53,7 @@ export class PacienteUpdateDeletePage implements OnInit {
       this.idPersona = params["idPersona"];
     });
     const url_fisio = 'http://gy7228.myfoscam.org:8080/stock-pwfe/persona/'+this.idPersona;
-    this.http.get(url_fisio).subscribe((response) => {      
+    this.http.get(url_fisio).subscribe((response) => {          
       this.response_persona = response;
       this.persona.idPersona= this.response_persona.idPersona;
       this.persona.nombre = this.response_persona.nombre;
@@ -58,7 +64,22 @@ export class PacienteUpdateDeletePage implements OnInit {
       this.persona.cedula = this.response_persona.cedula;
       this.persona.tipoPersona = this.response_persona.tipoPersona;
       this.persona.fechaNacimiento= this.response_persona.fechaNacimiento;       
-    });    
+    }); 
+    this.filtros.idCliente.idPersona=this.idPersona;
+    let params = new HttpParams().set('ejemplo',JSON.stringify(this.filtros));       
+    const url_reserva = 'http://gy7228.myfoscam.org:8080/stock-pwfe/reserva';    
+    this.http.get(url_reserva,{params:params}).subscribe((response) => { 
+      console.log(response,"entra reserva");
+      this.response = response;
+      if (this.response.totalDatos > 0) {this.status = false};
+    }); 
+    
+    const url_ficha = 'http://gy7228.myfoscam.org:8080/stock-pwfe/fichaClinica';    
+    this.http.get(url_ficha,{params:params}).subscribe((response) => { 
+      console.log(response,"entra ficha");
+      this.response = response;
+      if (this.response.totalDatos > 0) {this.status = false};
+    }); 
   }
 
   async presentAlert() {

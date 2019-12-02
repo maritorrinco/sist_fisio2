@@ -21,20 +21,27 @@
         </button>
       </div>
     </ion-item>
-    <ion-item>
-      <ion-label> <ion-icon name="contact"></ion-icon>Filtrar por Nombre</ion-label>  
-      <ion-select [interfaceOptions]="customPopoverOptions" interface="popover" placeholder="Nombre" [(ngModel)]="nombreSeleccionado"  (ngModelChange)="nombreSelec($event)" >
-        <ion-select-option value="null">Todos</ion-select-option>
-        <ion-select-option *ngFor="let item of itemsfiltro" value="{{item.nombre}}">{{item.nombre}}</ion-select-option>
-      </ion-select>
-    </ion-item>
-    <ion-item>
-      <ion-label> <ion-icon name="contact"></ion-icon>Filtrar por Apellido</ion-label>
-      <ion-select [interfaceOptions]="customPopoverOptions" interface="popover" placeholder="Apellido" [(ngModel)]="apellidoSeleccionado"  (ngModelChange)="apellidoSelec($event)" >
-        <ion-select-option value="null">Todos</ion-select-option>
-        <ion-select-option *ngFor="let item of itemsfiltro" value="{{item.apellido}}">{{item.apellido}}  </ion-select-option>
-      </ion-select>  
-    </ion-item>  
+    <ion-item >
+      <ion-label> <ion-icon name="search"></ion-icon>Aplicar Filtro</ion-label>  
+      <button ion-button (click) = "Limpiar()" icon-start  style="border-radius: 3px;
+        background-color: #f31212;
+        border-color: #e0240b;
+        box-shadow: none;
+        padding: 10px 16px;
+        float:right;
+        border: 1px solid transparent;">
+        Limpiar
+      </button>
+      <button ion-button (click) = "filtroVentana()" icon-start  style="border-radius: 3px;
+        background-color: #12f31d;
+        border-color: #0be052;
+        box-shadow: none;
+        padding: 10px 16px;
+        float:right;
+        border: 1px solid transparent;">
+        Filtro
+      </button>
+    </ion-item> 
     <ion-list *ngFor="let item of items" (click)="edit(item.id)">      
       <ion-item style="--border-color: white;">
         <ion-icon name="clipboard" slot="start"></ion-icon>

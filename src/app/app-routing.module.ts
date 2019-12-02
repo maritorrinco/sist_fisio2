@@ -62,7 +62,11 @@ const routes: Routes = [
   {
     path: 'paciente-update-delete',
     loadChildren: () => import('./paciente-update-delete/paciente-update-delete.module').then( m => m.PacienteUpdateDeletePageModule)
+  },  {
+    path: 'paciente-filtro',
+    loadChildren: () => import('./paciente-filtro/paciente-filtro.module').then( m => m.PacienteFiltroPageModule)
   }
+
 ];
 
 @NgModule({

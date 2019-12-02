@@ -16,15 +16,15 @@ export class PacienteCreatePage implements OnInit {
     telefono: null,
     ruc: null, 
     cedula: null, 
-    tipoPersona: null, 
+    tipoPersona: "FISICA", 
     fechaNacimiento: null
   }
-  myDate: any;
+  myDate: any;  
   constructor(private http: HttpClient,public navCtrl: NavController) {}
 
-  ngOnInit() {
+  ngOnInit() {    
   }
-  createPersona(){
+  createPersona(){    
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json', 

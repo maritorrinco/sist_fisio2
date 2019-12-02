@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Filtros Paciente</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label> <ion-icon name="contact"></ion-icon>Filtrar por Nombre</ion-label>  
+      <ion-select [interfaceOptions]="customPopoverOptions" interface="popover" placeholder="Nombre" [(ngModel)]="nombreSeleccionado"  >
+        <ion-select-option value="null">Todos</ion-select-option>
+        <ion-select-option *ngFor="let item of items" value="{{item.nombre}}">{{item.nombre}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label> <ion-icon name="contact"></ion-icon>Filtrar por Apellido</ion-label>
+      <ion-select [interfaceOptions]="customPopoverOptions" interface="popover" placeholder="Apellido" [(ngModel)]="apellidoSeleccionado" >
+        <ion-select-option value="null">Todos</ion-select-option>
+        <ion-select-option *ngFor="let item of items" value="{{item.apellido}}">{{item.apellido}}  </ion-select-option>
+      </ion-select>  
+    </ion-item>  
+    <ion-item>      
+      <ion-input [(ngModel)]="dato"  placeholder="Inserte texto"></ion-input>
+      <div style="width: 50%;">
+        <button ion-button (click) = "texto()" icon-start  style="border-radius: 3px;
+          background-color: #12f343;
+          border-color: #0be040;
+          box-shadow: none;
+          padding: 10px 16px;
+          float:right;
+          border: 1px solid transparent;">
+          Buscar
+        </button>
+        <button ion-button (click) = "Limpiar()" icon-start  style="border-radius: 3px;
+        background-color: #f31212;
+        border-color: #e0240b;
+        box-shadow: none;
+        padding: 10px 16px;
+        float:right;
+        border: 1px solid transparent;">
+        Limpiar
+      </button>
+      </div>      
+    </ion-item>                    
+  </ion-list>
+  <button ion-button (click) = "filtro()" icon-start  style="border-radius: 3px;
+      background-color: #f39c12;
+      border-color: #e08e0b;
+      box-shadow: none;
+      padding: 10px 16px;
+      margin-top: 5%;
+      margin-left: 35%;
+      border: 1px solid transparent;">
+      Aplicar Filtro 
+    </button>    
+</ion-content>
